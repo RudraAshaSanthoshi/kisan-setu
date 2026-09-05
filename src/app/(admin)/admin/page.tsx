@@ -234,7 +234,7 @@ export default function AdminPortalPage() {
                     <tr>
                       <th className="py-3 px-4">{t("analytics.centre_name") || "Procurement Centre"}</th>
                       <th className="py-3 px-4">{t("analytics.district_state") || "District & State"}</th>
-                      <th className="py-3 px-4 text-center">Today's Bookings</th>
+                      <th className="py-3 px-4 text-center">Today&apos;s Bookings</th>
                       <th className="py-3 px-4 text-center">Checked In</th>
                       <th className="py-3 px-4 text-center">Completed</th>
                       <th className="py-3 px-4 text-right">Quantity (Qtl)</th>
