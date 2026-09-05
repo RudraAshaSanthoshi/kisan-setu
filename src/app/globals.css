@@ -1,0 +1,98 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* KisanSetu Core Theme - Light / Sunlight Accessible Mode */
+    --background: 140 15% 98%;
+    --foreground: 155 40% 10%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 155 40% 10%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 155 40% 10%;
+
+    /* Deep Emerald Agricultural Primary */
+    --primary: 142.1 76.2% 27.3%;
+    --primary-foreground: 355.7 100% 99%;
+
+    /* Warm Soil & Leaf Secondary */
+    --secondary: 138 25% 93%;
+    --secondary-foreground: 145 60% 18%;
+
+    --muted: 140 10% 93%;
+    --muted-foreground: 150 10% 40%;
+
+    /* Harvest Gold / Amber Accent */
+    --accent: 38 92% 50%;
+    --accent-foreground: 38 95% 12%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 140 15% 88%;
+    --input: 140 15% 88%;
+    --ring: 142.1 76.2% 27.3%;
+
+    --radius: 0.625rem;
+  }
+
+  .dark {
+    /* Modern Clean Dark Mode */
+    --background: 155 35% 7%;
+    --foreground: 140 20% 96%;
+
+    --card: 155 30% 10%;
+    --card-foreground: 140 20% 96%;
+
+    --popover: 155 30% 10%;
+    --popover-foreground: 140 20% 96%;
+
+    --primary: 142 69% 40%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 155 20% 16%;
+    --secondary-foreground: 140 20% 90%;
+
+    --muted: 155 20% 15%;
+    --muted-foreground: 140 15% 65%;
+
+    --accent: 38 85% 55%;
+    --accent-foreground: 38 95% 10%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 155 20% 18%;
+    --input: 155 20% 18%;
+    --ring: 142 69% 40%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-sans antialiased selection:bg-primary/20 selection:text-primary;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+/* Mobile-first Touch Target Guidelines (min 44x44px for farmer inputs) */
+.touch-target {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+/* Accessible status badge animations */
+.pulse-badge {
+  animation: badge-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes badge-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
