@@ -214,6 +214,8 @@
       "credited_sbi": "बैंक में जमा (SBI)"
     },
     "booking_wizard": {
+      "today": "आज",
+      "tomorrow": "कल",
       "title": "स्मार्ट स्लॉट बुकिंग",
       "step_counter": "चरण {step} / 7 • {label}",
       "step_interactive": "समय चयन",

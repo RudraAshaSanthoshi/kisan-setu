@@ -161,6 +161,8 @@
       "credited_sbi": "જમા (SBI)"
     },
     "booking_wizard": {
+      "today": "આજે",
+      "tomorrow": "આવતીકાલે",
       "title": "સ્માર્ટ સ્લોટ બુકિંગ",
       "step_counter": "પગલું {step} / ૭ • {label}",
       "step_interactive": "સમય પસંદગી",

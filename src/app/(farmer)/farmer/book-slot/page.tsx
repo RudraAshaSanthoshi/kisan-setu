@@ -29,24 +29,82 @@ import {
 } from "lucide-react";
 import { VoiceButton } from "@/components/shared/VoiceButton";
 
-function getDynamicBookingDates(): string[] {
-  const dates: string[] = ["Today", "Tomorrow"];
+export interface BookingDateOption {
+  id: string;
+  isoDate: string;
+  offsetDays: number;
+  date: Date;
+}
+
+function getDynamicBookingDateOptions(): BookingDateOption[] {
   const now = new Date();
+  const options: BookingDateOption[] = [];
+  for (let i = 0; i < 4; i++) {
+    const d = new Date(now);
+    d.setDate(now.getDate() + i);
+    const yyyy = d.getFullYear();
+    const mm = String(d.getMonth() + 1).padStart(2, "0");
+    const dd = String(d.getDate()).padStart(2, "0");
+    const isoDate = `${yyyy}-${mm}-${dd}`;
+    options.push({
+      id: i === 0 ? "Today" : i === 1 ? "Tomorrow" : isoDate,
+      isoDate,
+      offsetDays: i,
+      date: d,
+    });
+  }
+  return options;
+}
 
-  const d2 = new Date(now);
-  d2.setDate(now.getDate() + 2);
-  const d2Str = `${d2.getDate()} ${d2.toLocaleString("en-US", { month: "short" })} ${d2.getFullYear()}`;
+function formatBookingDateLabel(
+  dateValue: string,
+  locale: string,
+  t: (key: string, params?: Record<string, any>) => string
+): string {
+  const now = new Date();
+  let targetDate: Date = now;
+  let offsetDays: number = -1;
 
-  const d3 = new Date(now);
-  d3.setDate(now.getDate() + 3);
-  const d3Str = `${d3.getDate()} ${d3.toLocaleString("en-US", { month: "short" })} ${d3.getFullYear()}`;
+  if (dateValue === "Today") {
+    offsetDays = 0;
+    targetDate = now;
+  } else if (dateValue === "Tomorrow") {
+    offsetDays = 1;
+    targetDate = new Date(now);
+    targetDate.setDate(now.getDate() + 1);
+  } else {
+    const parsed = new Date(dateValue);
+    if (!isNaN(parsed.getTime())) {
+      targetDate = parsed;
+      const todayZero = new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime();
+      const targetZero = new Date(parsed.getFullYear(), parsed.getMonth(), parsed.getDate()).getTime();
+      const diffDays = Math.round((targetZero - todayZero) / 86400000);
+      if (diffDays === 0) offsetDays = 0;
+      else if (diffDays === 1) offsetDays = 1;
+    }
+  }
 
-  dates.push(d2Str, d3Str);
-  return dates;
+  if (offsetDays === 0) {
+    return t("farmer.booking_wizard.today");
+  }
+  if (offsetDays === 1) {
+    return t("farmer.booking_wizard.tomorrow");
+  }
+
+  try {
+    const bcp47 = `${locale}-IN`;
+    return new Intl.DateTimeFormat(bcp47, {
+      day: "numeric",
+      month: "short",
+      year: "numeric",
+    }).format(targetDate);
+  } catch {
+    return `${targetDate.getDate()} ${targetDate.toLocaleString("en-US", { month: "short" })} ${targetDate.getFullYear()}`;
+  }
 }
 
 export default function BookSlotPage() {
-  const { t } = useLanguage();
+  const { t, locale } = useLanguage();
   const router = useRouter();
 
   // Wizard Step state (1 to 7)
@@ -414,27 +472,31 @@ export default function BookSlotPage() {
                       {t("farmer.booking_wizard.select_date_label")}
                     </Label>
                     <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
-                      {getDynamicBookingDates().map((dStr) => (
-                        <button
-                          key={dStr}
-                          type="button"
-                          onClick={() => setSelectedDate(dStr)}
-                          className={`p-3 rounded-xl border text-xs font-bold transition-all ${
-                            selectedDate === dStr
-                              ? "bg-primary text-primary-foreground border-primary shadow-subtle"
-                              : "bg-card border-border hover:border-primary/40 text-foreground"
-                          }`}
-                        >
-                          {dStr}
-                        </button>
-                      ))}
+                      {getDynamicBookingDateOptions().map((opt) => {
+                        const isSelected = selectedDate === opt.id;
+                        const label = formatBookingDateLabel(opt.id, locale, t);
+                        return (
+                          <button
+                            key={opt.id}
+                            type="button"
+                            onClick={() => setSelectedDate(opt.id)}
+                            className={`p-3 rounded-xl border text-xs font-bold transition-all ${
+                              isSelected
+                                ? "bg-primary text-primary-foreground border-primary shadow-subtle"
+                                : "bg-card border-border hover:border-primary/40 text-foreground"
+                            }`}
+                          >
+                            {label}
+                          </button>
+                        );
+                      })}
                     </div>
                   </div>
 
                   {/* Slot Grid */}
                   <div className="space-y-2">
                     <Label className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
-                      {t("farmer.booking_wizard.select_slot_label")} ({selectedDate})
+                      {t("farmer.booking_wizard.select_slot_label")} ({formatBookingDateLabel(selectedDate, locale, t)})
                     </Label>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                       {slots.map((s) => {
@@ -534,7 +596,7 @@ export default function BookSlotPage() {
 
                     <div className="flex justify-between py-1.5 border-b border-border/60">
                       <span className="text-muted-foreground font-medium">{t("farmer.booking_wizard.date_slot_label")}</span>
-                      <span className="font-bold text-foreground">{selectedDate} ({selectedSlot?.timeRange})</span>
+                      <span className="font-bold text-foreground">{formatBookingDateLabel(selectedDate, locale, t)} ({selectedSlot?.timeRange})</span>
                     </div>
 
                     <div className="flex justify-between py-1.5">
@@ -615,7 +677,7 @@ export default function BookSlotPage() {
                     </div>
                     <div>
                       <span className="text-muted-foreground block text-[10px]">{t("farmer.bookings.date_time")}</span>
-                      <span className="font-bold text-foreground">{confirmedBooking.bookingDate} ({confirmedBooking.timeSlot})</span>
+                      <span className="font-bold text-foreground">{formatBookingDateLabel(confirmedBooking.bookingDate, locale, t)} ({confirmedBooking.timeSlot})</span>
                     </div>
                   </div>
 

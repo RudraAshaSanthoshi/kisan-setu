@@ -161,6 +161,8 @@
       "credited_sbi": "வரவு வைக்கப்பட்டது (SBI)"
     },
     "booking_wizard": {
+      "today": "இன்று",
+      "tomorrow": "நாளை",
       "title": "ஸ்மார்ட் ஸ்லாட் முன்பதிவு",
       "step_counter": "படி {step} / 7 • {label}",
       "step_interactive": "நேரத் தேர்வு",

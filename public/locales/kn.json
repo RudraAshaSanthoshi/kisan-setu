@@ -161,6 +161,8 @@
       "credited_sbi": "ಜಮೆಯಾಗಿದೆ (SBI)"
     },
     "booking_wizard": {
+      "today": "ಇಂದು",
+      "tomorrow": "ನಾಳೆ",
       "title": "ಸ್ಮಾರ್ಟ್ ಸ್ಲಾಟ್ ಬುಕಿಂಗ್",
       "step_counter": "ಹಂತ {step} / 7 • {label}",
       "step_interactive": "ಸಂವಾದಾತ್ಮಕ ವೇಳಾಪಟ್ಟಿ",

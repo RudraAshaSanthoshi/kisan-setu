@@ -161,6 +161,8 @@
       "credited_sbi": "జమ అయింది (SBI)"
     },
     "booking_wizard": {
+      "today": "ఈరోజు",
+      "tomorrow": "రేపు",
       "title": "స్మార్ట్ స్లాట్ బుకింగ్",
       "step_counter": "దశ {step} / 7 • {label}",
       "step_interactive": "సమయ ఎంపిక",

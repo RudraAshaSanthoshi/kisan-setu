@@ -161,6 +161,8 @@
       "credited_sbi": "জমা হয়েছে (SBI)"
     },
     "booking_wizard": {
+      "today": "আজ",
+      "tomorrow": "আগামীকাল",
       "title": "স্মার্ট স্লট বুকিং",
       "step_counter": "ধাপ {step} / 7 • {label}",
       "step_interactive": "ইন্টারেক্টিভ সময়সূচী",

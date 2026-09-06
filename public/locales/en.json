@@ -214,6 +214,8 @@
       "credited_sbi": "Credited (SBI)"
     },
     "booking_wizard": {
+      "today": "Today",
+      "tomorrow": "Tomorrow",
       "title": "Smart Slot Booking",
       "step_counter": "Step {step} of 7 • {label}",
       "step_interactive": "Interactive Scheduling",

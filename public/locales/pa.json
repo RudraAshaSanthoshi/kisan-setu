@@ -161,6 +161,8 @@
       "credited_sbi": "ਜਮ੍ਹਾਂ (SBI)"
     },
     "booking_wizard": {
+      "today": "ਅੱਜ",
+      "tomorrow": "ਕੱਲ੍ਹ",
       "title": "ਸਮਾਰਟ ਸਲਾਟ ਬੁਕਿੰਗ",
       "step_counter": "ਕਦਮ {step} / 7 • {label}",
       "step_interactive": "ਸਮਾਂ ਚੋਣ",

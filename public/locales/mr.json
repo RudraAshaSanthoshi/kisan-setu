@@ -161,6 +161,8 @@
       "credited_sbi": "जमा (SBI)"
     },
     "booking_wizard": {
+      "today": "आज",
+      "tomorrow": "उद्या",
       "title": "स्मार्ट स्लॉट बुकिंग",
       "step_counter": "टप्पा {step} / ७ • {label}",
       "step_interactive": "वेळ निवड",
