@@ -835,7 +835,7 @@ dictionaryCache["hi"] = bundledHindi;
  * Synchronously retrieves embedded initial dictionary for server-side rendering or instant fallback.
  */
 export function getInitialDictionary(locale: string): Dictionary {
-  return dictionaryCache[locale] || dictionaryCache[DEFAULT_LOCALE] || dictionaryCache[FALLBACK_LOCALE];
+  return dictionaryCache[locale] || dictionaryCache[FALLBACK_LOCALE] || dictionaryCache[DEFAULT_LOCALE];
 }
 
 /**

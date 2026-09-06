@@ -109,8 +109,8 @@ export default function RegisterPage() {
         <Card className="border-border shadow-elevated">
           <CardHeader className="space-y-1 pb-4">
             <div className="flex items-center justify-between">
-              <CardTitle className="text-lg font-bold">Farmer Registration</CardTitle>
-              <Badge variant="success" className="text-[10px] px-2">Role: Farmer</Badge>
+              <CardTitle className="text-lg font-bold">{t("auth.register_title")}</CardTitle>
+              <Badge variant="success" className="text-[10px] px-2">{t("common.roles.farmer")}</Badge>
             </div>
             <CardDescription className="text-xs">
               Staff & Admin accounts use controlled provisioning.

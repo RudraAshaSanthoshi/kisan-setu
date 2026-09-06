@@ -29,6 +29,22 @@ import {
 } from "lucide-react";
 import { VoiceButton } from "@/components/shared/VoiceButton";
 
+function getDynamicBookingDates(): string[] {
+  const dates: string[] = ["Today", "Tomorrow"];
+  const now = new Date();
+
+  const d2 = new Date(now);
+  d2.setDate(now.getDate() + 2);
+  const d2Str = `${d2.getDate()} ${d2.toLocaleString("en-US", { month: "short" })} ${d2.getFullYear()}`;
+
+  const d3 = new Date(now);
+  d3.setDate(now.getDate() + 3);
+  const d3Str = `${d3.getDate()} ${d3.toLocaleString("en-US", { month: "short" })} ${d3.getFullYear()}`;
+
+  dates.push(d2Str, d3Str);
+  return dates;
+}
+
 export default function BookSlotPage() {
   const { t } = useLanguage();
   const router = useRouter();
@@ -398,7 +414,7 @@ export default function BookSlotPage() {
                       {t("farmer.booking_wizard.select_date_label")}
                     </Label>
                     <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
-                      {["Today", "Tomorrow", "16 Oct 2025", "17 Oct 2025"].map((dStr) => (
+                      {getDynamicBookingDates().map((dStr) => (
                         <button
                           key={dStr}
                           type="button"
